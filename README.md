@@ -43,4 +43,6 @@ Inorder to use this element on your page, follow the below steps:
   })();
 
 - Once you load the page, click on the button which says, "Show me the component" to perform all the actions.
+
+- When you submit the form, all the list elements are submitted as a JSON.
 	

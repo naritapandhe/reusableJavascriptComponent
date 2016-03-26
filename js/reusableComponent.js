@@ -55,8 +55,8 @@
   /**
    * ReusableForm options Object
    *
-   * @param {string} wrapper - The wrapper to append alerts to.
-   * @param {string} type - The type of alert.
+   * @param {string} wrapper - The wrapper to append the component to.
+   * @param {string} type - The type of component.
    */
   ReusableForm.prototype.options = {
     wrapper : document.body,
@@ -114,7 +114,6 @@
    * any events.
    */
   ReusableForm.prototype._events = function() {
-    // cache vars
     var btn_add = this.sa.querySelector('#appendInputToList'),
         self = this;    
 
@@ -142,7 +141,7 @@
       if(btn_formSubmit){
         self = this;
         
-        // listen for deleteElement
+        // listen for formSubmit
         btn_formSubmit.addEventListener( "click", function(e) {
           e.preventDefault();
           self.formSubmit();
@@ -190,7 +189,7 @@
   /**
    * ReusableForm add
    *
-   * This function simply shows our Simple Alert by appending it
+   * This function simply shows our ReusableForm component by appending it
    * to the wrapper in question.
    */
   ReusableForm.prototype.addInputToList = function(inputString) {
@@ -228,9 +227,12 @@
             jsonObj.push(item);
         }
         jsonString = JSON.stringify(jsonObj);
-        console.log(jsonString);
+        console.log(jsonString)
+        alert(jsonString);
+        return jsonString;
 
       }else if(this.options.tableRowCount<=2){
+        alert("You cannot submit an empty list!!");
         console.log("You cannot submit an empty list!!");
       }
       

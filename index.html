@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+  <!-- title and meta -->
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  
+  <title>Simple Alert Demo - JavaScript Objects &amp; Building A JavaScript Component – Part 2</title>
+
+  <!-- css -->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Slab">
+  <link rel="stylesheet" href="css/base.css">
+  <!--<link rel="stylesheet" href="css/style.css">-->
+
+  <!-- js -->
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <main>
+    <div class="container">
+      
+      <section class="demo-section-1">
+        <h1 class="demo-section__title">Component Demo</h1>
+      </section>
+
+      <section class="demo-section-1" id="reusableComponentButtons">
+        <button id="simple-alert__button--show">Show me the component</button>
+      </section>
+
+      <section class="demo-section" id="reusableComponentForm">
+      </section>
+    
+
+    </div>
+  </main><!-- /main -->
+  
+</div><!-- /#wrapper -->
+
+<!-- js -->
+<script src="js/simplealert.js"></script>
+<script src="js/reusableComponent.js"></script>
+<script>
+  
+
+  ( function() {
+
+    window.onclick = function (e) {
+        if (e.target.className == 'reusableComponentData-dismiss') {
+            e.preventDefault();
+            var sa = new ReusableForm({
+              wrapper : document.getElementById("reusableComponentForm"),
+              type : "default",
+              });
+            
+            console.log();
+            sa.dismiss(e);
+        }
+    }
+
+    window.onclick = function (e) {
+        if (e.target.id == 'formSubmit') {
+            e.preventDefault();
+            console.log("form submit clicked");
+            var jsonObj = [];
+            var jsonString;
+            var table = document.getElementById("inputList");
+            for (var r = 1, n = table.rows.length; r < n; r++) {
+            var item = {};
+              for (var c = 0, m = table.rows[r].cells.length; c < m; c++){        
+                  if(c==1){
+                    item ["data"] =table.rows[r].cells[c].innerHTML;}
+              }
+              jsonObj.push(item);
+            }
+            jsonString = JSON.stringify(jsonObj);
+            console.log(jsonString);
+      }
+    }
+
+    // cache vars
+    var btn_reusableComponent = document.getElementById("reusableComponentButtons");
+   
+   // show default
+    btn_reusableComponent.addEventListener( "click", function(e) {
+      e.preventDefault();
+      var sa = new ReusableForm({
+        wrapper : document.getElementById("reusableComponentForm"),
+        type : "default",
+      });
+      sa.show();
+    });
+
+  })();
+</script>
+
+</body>
+</html>

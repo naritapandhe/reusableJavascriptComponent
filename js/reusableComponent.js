@@ -111,7 +111,7 @@
    * ReusableForm _events
    *
    * This is our events function, and its sole purpose is to listen for
-   * any events inside our Simple Alert.
+   * any events.
    */
   ReusableForm.prototype._events = function() {
     // cache vars
@@ -127,14 +127,14 @@
     });
 
 
-    var btn_dismiss= this.sa.querySelector('.reusableComponentData-dismiss');
-    if(btn_dismiss){
+    var btn_deleteElement= this.sa.querySelector('.reusableComponentData-deleteElement');
+    if(btn_deleteElement){
         self = this;
         
-        // listen for dismiss
-        btn_dismiss.addEventListener( "click", function(e) {
+        // listen for deleteElement
+        btn_deleteElement.addEventListener( "click", function(e) {
           e.preventDefault();
-          self.dismiss();
+          self.deleteElement();
         });
       }
 
@@ -142,7 +142,7 @@
       if(btn_formSubmit){
         self = this;
         
-        // listen for dismiss
+        // listen for deleteElement
         btn_formSubmit.addEventListener( "click", function(e) {
           e.preventDefault();
           self.formSubmit();
@@ -153,7 +153,7 @@
   /**
    * ReusableForm show
    *
-   * This function simply shows our Simple Alert by appending it
+   * This function simply displays our form component by appending it
    * to the wrapper in question.
    */
   ReusableForm.prototype.show = function() {
@@ -161,12 +161,12 @@
   }
 
   /**
-   * ReusableForm dismiss
+   * ReusableForm deleteElement
    *
-   * This function simply hides our Simple Alert by removing it
-   * from the wrapper in question.
+   * This function simply deletes elements from list
+   *
    */
-  ReusableForm.prototype.dismiss = function(e) {
+  ReusableForm.prototype.deleteElement = function(e) {
     var rowCount = document.getElementById("inputList").getElementsByTagName("tr").length;
     this.options.tableRowCount--;
     var rowIndex=e.target.parentNode.parentNode.rowIndex;
@@ -210,7 +210,7 @@
     this.options.tableRowCount=this.options.tableRowCount+1;
     cell1.innerHTML = rowCount;
     cell2.innerHTML = inputString;
-    cell3.innerHTML = '<a href="#" class="reusableComponentData-dismiss" id="tableRow_'+rowCount+'">Delete</a>';
+    cell3.innerHTML = '<a href="#" class="reusableComponentData-deleteElement" id="tableRow_'+rowCount+'">Delete</a>';
     
   }
 

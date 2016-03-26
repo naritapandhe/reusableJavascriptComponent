@@ -49,37 +49,16 @@
 
   ( function() {
 
-    window.onclick = function (e) {
-        if (e.target.className == 'reusableComponentData-dismiss') {
-            e.preventDefault();
-            var sa = new ReusableForm({
+    var sa = new ReusableForm({
               wrapper : document.getElementById("reusableComponentForm"),
               type : "default",
               });
-            
-            console.log();
-            sa.dismiss(e);
-        }
-    }
 
     window.onclick = function (e) {
-        if (e.target.id == 'formSubmit') {
-            e.preventDefault();
-            console.log("form submit clicked");
-            var jsonObj = [];
-            var jsonString;
-            var table = document.getElementById("inputList");
-            for (var r = 1, n = table.rows.length; r < n; r++) {
-            var item = {};
-              for (var c = 0, m = table.rows[r].cells.length; c < m; c++){        
-                  if(c==1){
-                    item ["data"] =table.rows[r].cells[c].innerHTML;}
-              }
-              jsonObj.push(item);
-            }
-            jsonString = JSON.stringify(jsonObj);
-            console.log(jsonString);
-      }
+        e.preventDefault();
+        if (e.target.className == 'reusableComponentData-dismiss') {
+            sa.dismiss(e);
+        }
     }
 
     // cache vars
@@ -88,10 +67,6 @@
    // show default
     btn_reusableComponent.addEventListener( "click", function(e) {
       e.preventDefault();
-      var sa = new ReusableForm({
-        wrapper : document.getElementById("reusableComponentForm"),
-        type : "default",
-      });
       sa.show();
     });
 

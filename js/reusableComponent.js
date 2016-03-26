@@ -99,7 +99,7 @@
                 +'  <tbody>'
                 +'  </tbody>'
                 +'  </table><br/>'
-                +'  <input type="button" value="Submit List" id="formSubmit" />'
+                +'  <input type="button" value="Submit List" id="formSubmitButton" />'
                 +'  </div></form><br/>';            
     this.sa.innerHTML = strinner;
 
@@ -137,6 +137,17 @@
           self.dismiss();
         });
       }
+
+      var btn_formSubmit= this.sa.querySelector('#formSubmitButton');
+      if(btn_formSubmit){
+        self = this;
+        
+        // listen for dismiss
+        btn_formSubmit.addEventListener( "click", function(e) {
+          e.preventDefault();
+          self.formSubmit();
+        });
+      }
   }    
 
   /**
@@ -157,7 +168,7 @@
    */
   ReusableForm.prototype.dismiss = function(e) {
     var rowCount = document.getElementById("inputList").getElementsByTagName("tr").length;
-    this.options.tableRowCount=rowCount;
+    this.options.tableRowCount--;
     var rowIndex=e.target.parentNode.parentNode.rowIndex;
     document.getElementById("inputList").deleteRow(rowIndex);
     
@@ -165,6 +176,7 @@
     if(this.options.tableRowCount==2){
       var table = document.getElementById("inputList")
       var row = table.insertRow(this.options.tableRowCount-1);
+      row.className="noTableDataSpan";
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
@@ -188,7 +200,6 @@
     var noData = document.getElementsByClassName("noTableDataSpan");
     if(noData.length > 0){
         noData[0].parentNode.removeChild(noData[0]);
-       
     }
    
     var row = table.insertRow(this.options.tableRowCount-1);
@@ -202,6 +213,30 @@
     cell3.innerHTML = '<a href="#" class="reusableComponentData-dismiss" id="tableRow_'+rowCount+'">Delete</a>';
     
   }
+
+   ReusableForm.prototype.formSubmit = function(e) {
+      if(this.options.tableRowCount>2){
+        var jsonObj = [];
+        var jsonString;
+        var table = document.getElementById("inputList");
+        for (var r = 1, n = table.rows.length; r < n; r++) {
+            var item = {};
+            for (var c = 0, m = table.rows[r].cells.length; c < m; c++){        
+                  if(c==1){
+                    item ["data"] =table.rows[r].cells[c].innerHTML;}
+            }
+            jsonObj.push(item);
+        }
+        jsonString = JSON.stringify(jsonObj);
+        console.log(jsonString);
+
+      }else if(this.options.tableRowCount<=2){
+        console.log("You cannot submit an empty list!!");
+      }
+      
+    
+  }
+
   /**
    * Add to global namespace
    */
